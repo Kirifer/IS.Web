@@ -18,3 +18,7 @@ table {
   mat-form-field{
     width: 100%;
   }
+
+ .space{
+  margin-top: 100px;
+ }

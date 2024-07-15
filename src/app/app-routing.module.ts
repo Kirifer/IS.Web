@@ -3,11 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SupplyComponent } from './supply/supply.component';
+import { LoginRegisterComponent } from './login-register/login-register.component';
 
 const routes: Routes = [
   {
-    path:'',
-    redirectTo: 'dashboard', pathMatch: 'full'
+    path:'login',
+    component: LoginRegisterComponent
   },
   {
     path: "dashboard",
@@ -17,6 +18,7 @@ const routes: Routes = [
     path: "supply",
     component: SupplyComponent
   },
+  
 ];
 
 @NgModule({

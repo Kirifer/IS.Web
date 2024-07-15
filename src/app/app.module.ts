@@ -21,6 +21,13 @@ import { AddEditComponent } from './add-edit/add-edit.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatPaginatorModule} from '@angular/material/paginator';
+import { MatSortModule} from '@angular/material/sort';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { LoginRegisterComponent } from './login-register/login-register.component';
+import {FormsModule} from '@angular/forms';
+
+
 
 
 
@@ -31,7 +38,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BodyComponent,
     DashboardComponent,
     SupplyComponent,
-    AddEditComponent
+    AddEditComponent,
+    LoginRegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +54,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync()

@@ -14,4 +14,9 @@ export const navbarData = [
         icon: 'fal fa-cog',
         label: 'Settings'
     },
+    {
+        routeLink: 'login',
+        icon: 'fal fa-sign-out  ',
+        label: 'Logout'
+    },
 ]

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 interface SideNavToggle{
@@ -12,7 +13,7 @@ interface SideNavToggle{
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
- 
+ constructor(private router:Router){}
   title = 'inventory_system';
 
   isSideNavCollapsed = false;
@@ -20,5 +21,9 @@ export class AppComponent {
   onToggleSideNav(data: SideNavToggle): void{
     this.screenWidth = data.screenWidth;
     this.isSideNavCollapsed = data.collapsed;
+  }
+
+  get isAdminLogin(): boolean{
+    return this.router.url == '/login';
   }
 }

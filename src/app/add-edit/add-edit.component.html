@@ -36,12 +36,20 @@
             <mat-label>Quantity</mat-label>
             <input matInput type="number" placeholder="0" formControlName="quantity"/>
           </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Cost Per Unit</mat-label>
+            <input matInput type="number" placeholder="₱0" formControlName="costPerUnit"/>
+          </mat-form-field>
+
     </div>
+
+      
 
 </div>
 
 <div mat-dialog-actions class="action">
-    <button mat-raised-button>Cancel</button>
+    <button mat-raised-button (click)="onCancel()">Cancel</button>
     <button class="add-but" mat-raised-button type="submit"><mat-icon>input</mat-icon>Add</button>
 </div>
 </form>
