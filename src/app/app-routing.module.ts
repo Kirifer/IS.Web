@@ -4,8 +4,14 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SupplyComponent } from './supply/supply.component';
 import { LoginRegisterComponent } from './login-register/login-register.component';
+import { CodesComponent } from './codes/codes.component';
 
 const routes: Routes = [
+  {
+    path:'',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
   {
     path:'login',
     component: LoginRegisterComponent
@@ -17,6 +23,10 @@ const routes: Routes = [
   {
     path: "supply",
     component: SupplyComponent
+  },
+  {
+    path: "codes",
+    component: CodesComponent
   },
   
 ];

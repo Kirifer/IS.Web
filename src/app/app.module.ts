@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
@@ -26,8 +25,17 @@ import { MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { LoginRegisterComponent } from './login-register/login-register.component';
 import {FormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { CodesComponent } from './codes/codes.component';
+import { AddEditCodesComponent } from './add-edit-codes/add-edit-codes.component';
+import { AsyncPipe } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {FormBuilder} from '@angular/forms';
+import {MatCardModule} from '@angular/material/card';
 
 
+ 
 
 
 
@@ -39,7 +47,9 @@ import {FormsModule} from '@angular/forms';
     DashboardComponent,
     SupplyComponent,
     AddEditComponent,
-    LoginRegisterComponent
+    LoginRegisterComponent,
+    CodesComponent,
+    AddEditCodesComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +70,12 @@ import {FormsModule} from '@angular/forms';
     MatSortModule,
     MatPaginatorModule,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    AsyncPipe,
+    RouterOutlet,
+    MatGridListModule,
+    MatCardModule,
   ],
   providers: [
     provideAnimationsAsync()

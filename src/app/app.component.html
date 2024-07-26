@@ -2,6 +2,11 @@
   <div *ngIf="!isAdminLogin">
     <app-side-nav (onToggleSideNav)="onToggleSideNav($event)"></app-side-nav>
     <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
+    <!-- <router-outlet></router-outlet> -->
   </div>
-  <app-login-register></app-login-register>
+  <div *ngIf = "isAdminLogin">
+    <app-login-register></app-login-register>
+  </div>
+  
+
 </div>

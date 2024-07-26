@@ -1,54 +1,89 @@
-<!-- Main -->
+<!--Title-->
 <main class="main-container">
-    <div class="main-title">
-      <h2>DASHBOARD</h2>
-    </div>
+  <div class="main-title">
+    <h2>DASHBOARD</h2>
+  </div>
 
-    <div class="main-cards">
+  <!-- Main -->
+  <div class="main-cards">
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <span class="material-icons-outlined icon-size">inventory_2</span>
+      <mat-card-title-group class="center-content">
+        <mat-card-title>TOTAL ITEMS</mat-card-title>
+        <mat-card-subtitle>56</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+    </mat-card-content>
+  </mat-card>
 
-      <div class="card">
-        <div class="card-inner">
-          <h3>PRODUCTS</h3>
-          <span class="material-icons-outlined">inventory_2</span>
-        </div>
-        <h1>249</h1>
-      </div>
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <span class="material-icons-outlined icon-size">category</span>
+      <mat-card-title-group class="center-content">
+        <mat-card-title>CATEGORIES</mat-card-title>
+        <mat-card-subtitle>1</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+    </mat-card-content>
+  </mat-card>
 
-      <div class="card">
-        <div class="card-inner">
-          <h3>CATEGORIES</h3>
-          <span class="material-icons-outlined">category</span>
-        </div>
-        <h1>1</h1>
-      </div>
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <span class="material-icons-outlined icon-size">groups</span>
+      <mat-card-title-group class="center-content">
+        <mat-card-title>SUPPLIES TAKEN</mat-card-title>
+        <mat-card-subtitle>123</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+    </mat-card-content>
+  </mat-card>
 
-      <div class="card">
-        <div class="card-inner">
-          <h3>SUPPLIES TAKEN</h3>
-          <span class="material-icons-outlined">groups</span>
-        </div>
-        <h1>123</h1>
-      </div>
-
-      <div class="card">
-        <div class="card-inner">
-          <h3>SUPPLIES LEFT</h3>
-          <span class="material-icons-outlined">
-            inventory
-            </span>
-        </div>
-        <h1>126</h1>
-      </div>
-
-    </div>
-
-    <div class="charts">
-
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <span class="material-icons-outlined icon-size">inventory</span>
+      <mat-card-title-group class="center-content">
+        <mat-card-title>SUPPLIES LEFT</mat-card-title>
+        <mat-card-subtitle>126</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+    </mat-card-content>
+  </mat-card>
+  </div> 
 
 
-    </div>
-  </main>
+
+  <div class="card-container">
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>Budget vs Actual</mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        <canvas id="MyFirstChart">{{ firstChart }}</canvas>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>Branch-Wise Spend Analysis</mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        <canvas id="MySecondChart">{{ secondChart }}</canvas>
+      </mat-card-content>
+    </mat-card>
+  
+  </div>
 
   
+</main>
+
   <!-- End Main -->
 

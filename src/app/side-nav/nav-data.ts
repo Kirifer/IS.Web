@@ -10,9 +10,9 @@ export const navbarData = [
         label: 'Supply'
     },
     {
-        routeLink: 'settings',
-        icon: 'fal fa-cog',
-        label: 'Settings'
+        routeLink: 'codes',
+        icon: 'fal fa-box',
+        label: 'Supply Codes'
     },
     {
         routeLink: 'login',
