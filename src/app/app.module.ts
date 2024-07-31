@@ -33,6 +33,8 @@ import { RouterOutlet } from '@angular/router';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {FormBuilder} from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
+import { EditSupplyComponent } from './edit-supply/edit-supply.component';
+import { EditCodeComponent } from './edit-code/edit-code.component';
 
 
  
@@ -49,7 +51,9 @@ import {MatCardModule} from '@angular/material/card';
     AddEditComponent,
     LoginRegisterComponent,
     CodesComponent,
-    AddEditCodesComponent
+    AddEditCodesComponent,
+    EditSupplyComponent,
+    EditCodeComponent
   ],
   imports: [
     BrowserModule,

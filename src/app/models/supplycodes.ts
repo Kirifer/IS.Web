@@ -1,4 +1,5 @@
 export interface SupplyCodes {
+    id: string;
     code: string;
     category: string;
     item: string;

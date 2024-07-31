@@ -78,6 +78,32 @@ export class AddEditComponent implements OnInit {
     }
   }
 
+  // create 
+  createData(formData: Supply) {
+    this.http.post('https://localhost:7012/supplies', formData).subscribe({
+      next: response => {
+        console.log('Data successfully submitted', response);
+        this.dialogRef.close();
+      },
+      error: error => {
+        console.error('Error submitting data', error);
+      }
+    });
+  }
+
+  // update
+  updateData(formData: Supply) {
+    this.http.put(`https://localhost:7012/supplies/${formData.id}`, formData).subscribe({
+      next: response => {
+        console.log('Data successfully updated', response);
+        this.dialogRef.close();
+      },
+      error: error => {
+        console.error('Error updating data', error);
+      }
+    });
+  }
+
   // Cancel form
   onCancel(): void {
     this.dialogRef.close();

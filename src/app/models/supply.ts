@@ -1,5 +1,5 @@
 export interface Supply {
-    id?: string;
+    id: string;
     category: string;
     item: string;
     color: string;

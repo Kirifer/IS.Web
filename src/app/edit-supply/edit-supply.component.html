@@ -1,0 +1,70 @@
+<div mat-dialog-title>
+    <h5>
+      <span class="material-icons">
+        inventory
+        </span> Edit Item
+    </h5>
+  </div>
+  
+  <form [formGroup]="supplyForm">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>
+                    <mat-icon>view_stream</mat-icon> Category
+                </mat-label>
+                <mat-select formControlName="category">
+                    <mat-option *ngFor="let val of categ" [value]="val">{{val}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline">
+                <mat-label>Item</mat-label>
+                <input matInput type="text" formControlName="item">
+            </mat-form-field>
+        </div>
+  
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Color</mat-label>
+                <input matInput type="text" formControlName="color">
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline">
+                <mat-label>Size</mat-label>
+                <input matInput type="text" formControlName="size">
+            </mat-form-field>
+        </div>
+  
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Quantity</mat-label>
+                <input matInput type="number" placeholder="0" formControlName="quantity">
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline">
+                <mat-label>Supplies Taken</mat-label>
+                <input matInput type="number" placeholder="0" formControlName="suppliesTaken">
+            </mat-form-field>
+        </div>
+  
+        <div class="row">
+          <mat-form-field appearance="outline">
+              <mat-label>Cost Per Unit</mat-label>
+              <input matInput type="number" placeholder="₱0" formControlName="costPerUnit">
+          </mat-form-field>
+      </div>
+  
+        
+    </div>
+  
+    
+  
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button (click)="close()">Cancel</button>
+        <button class="add-but" mat-raised-button type="submit" (click)="save()">
+            <mat-icon>input</mat-icon>Save
+        </button>
+    </div>
+  </form>
+  

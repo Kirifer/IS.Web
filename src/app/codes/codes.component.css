@@ -17,3 +17,9 @@
   display: flex;
   justify-content: space-between;
 } 
+.delete-btn{
+  color: rgb(160, 0, 0);
+}
+.edit-btn{
+  color: #0003be;
+}

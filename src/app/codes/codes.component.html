@@ -56,7 +56,12 @@
        <section class="supply-taken" [formGroup]="taken">
       <ng-container matColumnDef="supplyTaken">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Supply Taken </th>
-        <td mat-cell *matCellDef="let row"><p><mat-checkbox formControlName="supplyTaken"></mat-checkbox></p></td>
+        <!-- [checked] displays checked when data from table(database) is checked -->
+        <td mat-cell *matCellDef="let row">
+          <p>
+            <mat-checkbox [checked]="row.supplyTaken" (change)="updateSupplyTaken(row, $event.checked)"></mat-checkbox>
+          </p>
+        </td>
       </ng-container>
       </section>
   
@@ -64,12 +69,12 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
         <td mat-cell *matCellDef="let row"> 
-          <button mat-icon-button>
-            <mat-icon>edit</mat-icon>
+          <button mat-icon-button (click)="openEditForm(row)">
+            <mat-icon class="edit-btn">edit</mat-icon>
           </button>
   
-          <button mat-icon-button>
-            <mat-icon>delete</mat-icon>
+          <button mat-icon-button (click)="deleteSupply(row.id)">
+            <mat-icon class="delete-btn">delete</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -89,8 +94,3 @@
   <div class="space">
   
   </div>
-
-  <section class="example-section" [formGroup]="taken">
-    <h4>You chose:</h4>
-    {{taken.value | json}}
-  </section>

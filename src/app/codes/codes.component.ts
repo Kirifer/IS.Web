@@ -12,7 +12,7 @@ import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {ChangeDetectionStrategy, inject} from '@angular/core';
 import {JsonPipe} from '@angular/common';
-
+import { EditCodeComponent } from '../edit-code/edit-code.component';
 
 
 
@@ -53,7 +53,82 @@ export class CodesComponent {
     );
   }
 
-  // ADD - EDIT Supply
+  // http delete
+  deleteSupply(id: string) {
+    this.http.delete(`https://localhost:7012/supplycodes/${id}`).subscribe({
+      next: () => {
+        console.log('Supply successfully deleted');
+        // Ensure id is a string for comparison
+        this.dataSource.data = this.dataSource.data.filter((supplycodes: SupplyCodes) => supplycodes.id !== id);
+        // Trigger change detection if necessary
+        this.dataSource._updateChangeSubscription();
+      },
+      error: error => {
+        console.error('Error deleting supply', error);
+        // Log detailed error information
+        if (error.status) {
+          console.error(`HTTP Status: ${error.status}`);
+        }
+        if (error.message) {
+          console.error(`Error Message: ${error.message}`);
+        }
+        if (error.error) {
+          console.error(`Error Details: ${JSON.stringify(error.error)}`);
+        }
+      }
+    });
+  }
+
+  // http update
+  openEditForm(supply: SupplyCodes) {
+    const dialogRef = this._dialog.open(EditCodeComponent, {
+      data: supply
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateSupply(result);
+      }
+    });
+  }
+  updateSupply(supply: SupplyCodes) {
+    this.http.put(`https://localhost:7012/supplycodes/${supply.id}`, supply).subscribe({
+      next: () => {
+        const index = this.dataSource.data.findIndex(item => item.id === supply.id);
+        if (index !== -1) {
+          this.dataSource.data[index] = supply;
+          this.dataSource._updateChangeSubscription();
+        }
+      },
+      error: error => {
+        console.error('Error updating supply', error);
+      }
+    });
+  }
+
+  // this updates the supplyTaken (checked or unchecked)
+  updateSupplyTaken(row: any, isChecked: boolean) {
+    row.supplyTaken = isChecked;
+    console.log('Updating supply taken status with row data:', row);
+  
+    this.http.put(`https://localhost:7012/supplycodes/${row.id}`, row)
+      .subscribe({
+        next: response => {
+          console.log('Supply taken status updated', response);
+        },
+        error: error => {
+          console.error('Error updating supply taken status', error);
+          if (error.status === 400) {
+            console.error('Bad Request: Please check the payload and endpoint.');
+            console.error('Payload:', row);
+            console.error('Endpoint:', `https://localhost:7012/supplycodes/${row.id}`);
+          }
+        }
+      });
+  }
+  
+
+
+  // ADD - EDIT Supply // Adding item
   openAddEditForm(){
     this._dialog.open(AddEditCodesComponent);
   }
@@ -63,7 +138,7 @@ export class CodesComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  // Supply Taken
+  // Supply Taken - checkbox (if the supplyTaken is false = unchecked, if true = checked)
   private readonly _formBuilder = inject(FormBuilder);
   readonly taken = this._formBuilder.group({
     supplyTaken: false,
