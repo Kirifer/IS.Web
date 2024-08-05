@@ -105,7 +105,7 @@ export class CodesComponent {
     });
   }
 
-  // this updates the supplyTaken (checked = true or unchecked = false)
+  // this will automatically updates the supplyTaken (checked = true or unchecked = false)
   updateSupplyTaken(row: any, isChecked: boolean) {
     row.supplyTaken = isChecked;
     console.log('Updating supply taken status with row data:', row);
