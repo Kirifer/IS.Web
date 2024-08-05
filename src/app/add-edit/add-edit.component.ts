@@ -12,9 +12,6 @@ import { Supply } from '../models/supply';
 export class AddEditComponent implements OnInit {
   empForm: FormGroup;
   
-  categ: string[] = [
-    'Office Supply'
-  ];
 
   constructor(
     private _fb: FormBuilder,

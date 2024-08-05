@@ -9,14 +9,10 @@
 <form [formGroup]="empForm" (ngSubmit)="onFormSubmit()">
   <div mat-dialog-content class="content">
       <div class="row">
-          <mat-form-field appearance="outline">
-              <mat-label>
-                  <mat-icon>view_stream</mat-icon> Category
-              </mat-label>
-              <mat-select formControlName="category">
-                  <mat-option *ngFor="let val of categ" [value]="val">{{val}}</mat-option>
-              </mat-select>
-          </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <input matInput type="text" placeholder="Ex. Office Supply" formControlName="category">
+        </mat-form-field>
 
           <mat-form-field appearance="outline">
               <mat-label>Item</mat-label>

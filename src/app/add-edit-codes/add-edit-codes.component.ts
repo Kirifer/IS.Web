@@ -24,6 +24,7 @@ export class AddEditCodesComponent {
   ) {    
       this.empForm = this._fb.group({
       code:'',
+      // sequenceCode:'',
       category:'',
       item:'',
       color:'',
@@ -33,6 +34,7 @@ export class AddEditCodesComponent {
     });
   }
 
+  // CREATE
   onFormSubmit(){
     if(this.empForm.valid){
       const formData: SupplyCodes = this.empForm.value;
@@ -48,6 +50,7 @@ export class AddEditCodesComponent {
     }
   }
 
+  // CANCEL
   onCancel(): void{
     this.dialogRef.close()
   }
