@@ -5,8 +5,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Supply } from '../models/supply';
-import { SupplyService } from '../service/supply.service';
-import { environment } from '../../environments/environment';
 import { Observable,of,tap,throwError,map,catchError, } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { EditSupplyComponent } from '../edit-supply/edit-supply.component';

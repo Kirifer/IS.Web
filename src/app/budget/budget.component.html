@@ -1,0 +1,55 @@
+<!-- Main -->
+<main class="main-container">
+<div class="main-cards">
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <span class="material-icons-outlined icon-size">account_balance</span>
+        <mat-card-title-group class="center-content">
+          <mat-card-title>BUDGET</mat-card-title>
+          <mat-card-subtitle>{{1500 | currency:"PHP"}}</mat-card-subtitle>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <span class="material-icons-outlined icon-size">payments</span>
+        <mat-card-title-group class="center-content">
+          <mat-card-title>TOTAL EXPENSES</mat-card-title>
+          <mat-card-subtitle>{{500 | currency:"PHP"}}</mat-card-subtitle>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+          <span class="material-icons-outlined icon-size">savings</span>
+          <mat-card-title-group class="center-content">
+            <mat-card-title>BUDGET LEFT</mat-card-title>
+            <mat-card-subtitle>{{1000 | currency:"PHP"}}</mat-card-subtitle>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+        </mat-card-content>
+      </mat-card>
+
+    </div> 
+
+    <!-- GRAPH -->
+    <div class="card-container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>Budget vs Expenses</mat-card-title>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          <canvas id="MyFirstChart">{{ firstChart }}</canvas>
+        </mat-card-content>
+      </mat-card>
+      </div>
+</main>

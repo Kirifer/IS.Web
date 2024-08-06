@@ -125,12 +125,6 @@ export class CodesComponent {
         }
       });
   }
-  
-  // ADD - EDIT Supply // Adding item
-  openAddEditForm(){
-    this._dialog.open(AddEditCodesComponent);
-  }
-
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

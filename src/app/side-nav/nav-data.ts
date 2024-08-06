@@ -15,8 +15,14 @@ export const navbarData = [
         label: 'Supply Codes'
     },
     {
+        routeLink: 'budget',
+        icon: 'fal fa-money-bill-wave',
+        label: 'Budget & Expenses'
+    },
+    {
         routeLink: 'login',
         icon: 'fal fa-sign-out  ',
         label: 'Logout'
     },
+    
 ]

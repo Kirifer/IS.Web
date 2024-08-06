@@ -9,4 +9,5 @@ export interface Supply {
     suppliesLeft: number;
     costPerUnit: number;
     total: number;
+    dateCreated: Date;
 }

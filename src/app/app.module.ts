@@ -35,7 +35,8 @@ import {FormBuilder} from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import { EditSupplyComponent } from './edit-supply/edit-supply.component';
 import { EditCodeComponent } from './edit-code/edit-code.component';
-
+import { BudgetComponent } from './budget/budget.component';
+import { DatePipe } from '@angular/common';
 
  
 
@@ -53,7 +54,8 @@ import { EditCodeComponent } from './edit-code/edit-code.component';
     CodesComponent,
     AddEditCodesComponent,
     EditSupplyComponent,
-    EditCodeComponent
+    EditCodeComponent,
+    BudgetComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +82,7 @@ import { EditCodeComponent } from './edit-code/edit-code.component';
     RouterOutlet,
     MatGridListModule,
     MatCardModule,
+    DatePipe
     
   ],
   providers: [
