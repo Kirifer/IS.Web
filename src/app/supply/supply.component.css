@@ -1,4 +1,7 @@
-
+.button-container{
+  display: flex;
+    gap: 20px;
+float: right;}
   
   .mat-mdc-form-field {
     font-size: 14px;
@@ -51,6 +54,9 @@
   width: 100%;
   margin-bottom: 20px;
 }
+table{
+  background-color: white;
+}
 
 /* Input field styles */
 input[matInput] {
@@ -97,7 +103,7 @@ table {
 }
 
 .mat-header-cell:hover {
-  background-color: #00599e;
+  background-color: #f4f7fa;
   color: white;
 }
 
@@ -157,7 +163,7 @@ table {
 }
 
 tr:hover {
-  background-color: #b1d3ff;
+  background-color: #f4f7fa;
 }
 
 /* Column icon styles */
@@ -173,7 +179,7 @@ tr:hover {
 }
 
 .mat-icon:nth-child(even):hover {
-  color: #ffffff;
+  color: #707070;
 }
 
 .edit-btn {

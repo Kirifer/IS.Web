@@ -8,6 +8,8 @@ import { Supply } from '../models/supply';
 import { Observable,of,tap,throwError,map,catchError, } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { EditSupplyComponent } from '../edit-supply/edit-supply.component';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-supply',
@@ -103,6 +105,44 @@ export class SupplyComponent implements OnInit, AfterViewInit {
     });
   }
   
+  public downloadPDF(): void {
+    // Save the current paginator settings
+    const currentPageIndex = this.paginator.pageIndex;
+    const currentPageSize = this.paginator.pageSize;
+
+    // Temporarily disable pagination and display all rows
+    this.paginator.pageSize = this.dataSource.data.length;
+    this.paginator.pageIndex = 0;
+    this.dataSource.paginator = this.paginator;
+
+    const data = document.getElementById('tableToPrint');
+    if (data) {
+      // Hide the action column
+      const actionColumns = data.querySelectorAll('.action-column');
+      actionColumns.forEach(column => {
+        (column as HTMLElement).style.display = 'none';
+      });
+
+      html2canvas(data).then(canvas => {
+        const imgWidth = 208;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        const contentDataURL = canvas.toDataURL('image/png');
+        let pdf = new jsPDF('p', 'mm', 'a4');
+        pdf.addImage(contentDataURL, 'PNG', 0, 10, imgWidth, imgHeight);
+        pdf.save('Supplies-Table.pdf');
+
+        // Show the action column again
+        actionColumns.forEach(column => {
+          (column as HTMLElement).style.display = '';
+        });
+
+        // Restore the original paginator settings
+        this.paginator.pageSize = currentPageSize;
+        this.paginator.pageIndex = currentPageIndex;
+        this.dataSource.paginator = this.paginator;
+      });
+    }
+  }
 
   // Add Supply (Form)
   openAddEditForm() {

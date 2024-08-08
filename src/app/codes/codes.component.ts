@@ -14,6 +14,8 @@ import { ChangeDetectionStrategy, inject } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { EditCodeComponent } from '../edit-code/edit-code.component';
 import { Supply } from '../models/supply';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-codes',
@@ -21,7 +23,7 @@ import { Supply } from '../models/supply';
   styleUrl: './codes.component.css'
 })
 export class CodesComponent {
-  displayedColumns: string[] = ['code', 'category', 'officeSupplies', 'numberOfItems', 'color', 'size', 'action', 'supplyTaken'];
+  displayedColumns: string[] = ['code', 'category', 'officeSupplies', 'numberOfItems', 'color', 'size',   'supplyTaken','action'];
   dataSource = new MatTableDataSource<SupplyCodes>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -185,6 +187,44 @@ export class CodesComponent {
       });
   }
 
+  public downloadPDF(): void {
+    // Save the current paginator settings
+    const currentPageIndex = this.paginator.pageIndex;
+    const currentPageSize = this.paginator.pageSize;
+
+    // Temporarily disable pagination and display all rows
+    this.paginator.pageSize = this.dataSource.data.length;
+    this.paginator.pageIndex = 0;
+    this.dataSource.paginator = this.paginator;
+
+    const data = document.getElementById('tableToPrint');
+    if (data) {
+      // Hide the action column
+      const actionColumns = data.querySelectorAll('.action-column');
+      actionColumns.forEach(column => {
+        (column as HTMLElement).style.display = 'none';
+      });
+
+      html2canvas(data).then(canvas => {
+        const imgWidth = 208;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        const contentDataURL = canvas.toDataURL('image/png');
+        let pdf = new jsPDF('p', 'mm', 'a4');
+        pdf.addImage(contentDataURL, 'PNG', 0, 10, imgWidth, imgHeight);
+        pdf.save('Supply-Codes-Table.pdf');
+
+        // Show the action column again
+        actionColumns.forEach(column => {
+          (column as HTMLElement).style.display = '';
+        });
+
+        // Restore the original paginator settings
+        this.paginator.pageSize = currentPageSize;
+        this.paginator.pageIndex = currentPageIndex;
+        this.dataSource.paginator = this.paginator;
+      });
+    }
+  }
 
   // Supply Taken - checkbox (if the supplyTaken is false = unchecked, if true = checked)
   private readonly _formBuilder = inject(FormBuilder);
@@ -203,6 +243,5 @@ export class CodesComponent {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.sort.sort({ id: 'code', start: 'asc', disableClear: true });
   }
 }

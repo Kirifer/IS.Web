@@ -2,11 +2,19 @@
 <div class="main-title">
   <h3><span class="material-symbols-outlined icon-size">inventory_2</span> SUPPLIES</h3>
 </div>
+<div class="button-container">
 <div class="button-add">
   <span class="example-spacer"></span>
   <button mat-raised-button (click)="openAddEditForm()">
     ADD SUPPLY <mat-icon>add</mat-icon>
   </button>
+</div>
+<div class="button-add">
+  <span class="example-spacer"></span>
+  <button mat-raised-button (click)="downloadPDF()">
+    PRINT TABLE <mat-icon>print</mat-icon>
+  </button>
+</div>
 </div>
 
 <!-- TABLE -->
@@ -17,7 +25,7 @@
     <mat-label><span class="material-icons">search</span> Search</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Ballpen" #input>
   </mat-form-field>
-
+  <div id="tableToPrint">
   <table mat-table [dataSource]="dataSource" matSort>
     <!-- Category Column -->
     <ng-container matColumnDef="category">
@@ -75,8 +83,8 @@
 
     <!-- Action Column -->
     <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-      <td mat-cell *matCellDef="let supply"> 
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="action-column"> Action </th>
+      <td mat-cell *matCellDef="let supply" class="action-column"> 
         <button mat-icon-button (click)="openEditForm(supply)">
           <mat-icon class="edit-btn">edit</mat-icon>
         </button>
@@ -95,6 +103,7 @@
       <td class="mat-cell no-data-cells" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
   </table>
+</div>
 
   <mat-paginator class="paginator" [pageSizeOptions]="[10, 15, 25, 100]" aria-label="Select page of users"></mat-paginator>
 </div>
