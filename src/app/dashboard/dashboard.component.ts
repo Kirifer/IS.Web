@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
     this.supplies$.subscribe({
       next: supplies => {
         console.log('Supplies in component:', supplies);
-        this.dataSource.data = supplies.sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()); // sort from new to old
+        this.dataSource.data = supplies.sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
         this.dataSource.data = this.dataSource.data.slice(0, 7); // limits the data to 7
       },
       error: err => console.log('Error in subscription:', err)

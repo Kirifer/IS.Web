@@ -26,7 +26,7 @@ export class AddEditComponent implements OnInit {
       color: [''],
       size: [''],
       quantity: [],
-      suppliesTaken: [],
+      suppliesTaken: [0],
       suppliesLeft: [{value: 0, disabled: true}],
       costPerUnit: [],
       total: [{value: 0, disabled: true}],
@@ -36,7 +36,6 @@ export class AddEditComponent implements OnInit {
     });
   }
   
-
   ngOnInit() {
     // update derived fields whenever their dependencies change
     this.empForm.get('quantity')?.valueChanges.subscribe(() => this.updateDerivedFields());
