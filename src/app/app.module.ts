@@ -37,6 +37,7 @@ import { EditSupplyComponent } from './edit-supply/edit-supply.component';
 import { EditCodeComponent } from './edit-code/edit-code.component';
 import { BudgetComponent } from './budget/budget.component';
 import { DatePipe } from '@angular/common';
+import { ExcelExportService } from './service/excel-export.service';
 
  
 
@@ -82,12 +83,13 @@ import { DatePipe } from '@angular/common';
     RouterOutlet,
     MatGridListModule,
     MatCardModule,
-    DatePipe
+    DatePipe,
+    
     
   ],
   providers: [
     provideAnimationsAsync()
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,ExcelExportService]
 })
 export class AppModule { }

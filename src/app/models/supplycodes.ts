@@ -8,4 +8,5 @@ export interface SupplyCodes {
     size: string;
     quantity: number;
     supplyTaken: boolean;
+    codeDisplay: string;
 }
