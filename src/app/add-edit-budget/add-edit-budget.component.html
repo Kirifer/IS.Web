@@ -1,0 +1,40 @@
+<div mat-dialog-title>
+    <h5><span class="material-icons">
+      inventory
+      </span> Add Budget & Expenses</h5>
+</div>
+
+<form [formGroup]="empForm"(ngSubmit)="onFormSubmit()">
+<div mat-dialog-content class="content">
+  <div class="row">
+    <mat-form-field appearance="outline">
+        <mat-label>Month</mat-label>
+        <mat-select formControlName="monthCreated">
+            <mat-option *ngFor="let month of months" [value]="month.value">{{ month.viewValue }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Year</mat-label>
+      <input matInput type="number" formControlName="yearCreated">
+    </mat-form-field>
+  </div>
+
+    <div class="row">
+        <mat-form-field appearance="outline">
+            <mat-label>Budget</mat-label>
+            <input matInput type="number" formControlName="budget">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Expenses</mat-label>
+            <input matInput type="number" formControlName="expenses">
+          </mat-form-field>
+    </div>   
+
+</div>
+
+<div mat-dialog-actions class="action">
+    <button mat-raised-button (click)="onCancel()">Cancel</button>
+    <button class="add-but" mat-raised-button type="submit"><mat-icon>input</mat-icon>Add</button>
+</div>
+</form>

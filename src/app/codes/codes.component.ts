@@ -22,7 +22,8 @@ import { ExcelExportService } from '../service/excel-export.service';
   styleUrl: './codes.component.css'
 })
 export class CodesComponent {
-  displayedColumns: string[] = ['code', 'category', 'item', 'color', 'size','numberOfSupplies', 'supplyTaken','action'];
+
+  displayedColumns: string[] = ['codeDisplay', 'category', 'item', 'color', 'size','numberOfSupplies', 'supplyTaken','action'];
   dataSource = new MatTableDataSource<SupplyCodes>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

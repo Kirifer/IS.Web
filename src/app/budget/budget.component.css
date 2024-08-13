@@ -11,7 +11,7 @@
   .card-container {
       display: flex;
       flex-wrap: nowrap;
-      width: 35%;
+      width: 40%;
       margin: 1px 0;
   }
     
@@ -41,3 +41,76 @@
   mat-card-subtitle {
       font-size: 20px;
   }
+
+.card-container, .table-container {
+    flex: 1;
+    margin: 10px;
+}
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.graph-section {
+    flex: 0 0 35%; /* 25% width */
+    padding-right: 0; /* Optional: Adjust spacing between the graph and table */
+}
+
+.table-section {
+    flex: 0 0 50%; /* 75% width */
+    margin-right: 150px; /* Optional: Adjust spacing between the table and graph */
+}
+.button-add{
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+.edit-btn {
+  color: #00215f;
+}
+
+.delete-btn {
+  color: #cf0000f8;
+}
+.year-selector {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+    
+  }
+  
+  .year-selector-field {
+    min-width: 120px;
+    max-width: 150px;
+  }
+  
+  .mat-form-field {
+    font-size: 10px;
+  }
+  
+  .mat-select-trigger {
+    height: 32px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .mat-select-arrow {
+    color: #3f51b5; /* Customize the color to match your theme */
+  }
+  
+  .mat-option-text {
+    font-size: 14px;
+  }
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .button-container button {
+    flex: 1;
+    margin: 0 1px;
+    font-size: 12px; /* Adjust font size if needed */
+    padding: 2px 8px; /* Adjust padding if needed */
+  }
+  

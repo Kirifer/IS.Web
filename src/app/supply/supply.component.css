@@ -48,11 +48,11 @@ float: right;}
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  width: 90%;
+  width: 96%;
 }
 .search {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 20px;  
 }
 table{
   background-color: white;
@@ -188,4 +188,9 @@ tr:hover {
 
 .delete-btn {
   color: #cf0000f8;
+}
+.column-icon{
+  font-size: 20px;
+  color: #000000;
+  margin-right: 1px;
 }

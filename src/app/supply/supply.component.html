@@ -29,55 +29,55 @@
   <table mat-table [dataSource]="dataSource" matSort>
     <!-- Category Column -->
     <ng-container matColumnDef="category">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="column-icon">category</mat-icon> Category </th>
       <td mat-cell *matCellDef="let supply"> {{supply.category}} </td>
     </ng-container>
 
     <!-- Item Column -->
     <ng-container matColumnDef="item">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Item </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="column-icon">list</mat-icon> Item </th>
       <td mat-cell *matCellDef="let supply"> {{supply.item}} </td>
     </ng-container>
 
     <!-- Color Column -->
     <ng-container matColumnDef="color">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="column-icon">color_lens</mat-icon> Color </th>
       <td mat-cell *matCellDef="let supply"> {{supply.color}} </td>
     </ng-container>
 
     <!-- Size Column -->
     <ng-container matColumnDef="size">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Size </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="column-icon">format_size</mat-icon> Size </th>
       <td mat-cell *matCellDef="let supply"> {{supply.size}} </td>
     </ng-container>
 
     <!-- Quantity Column -->
     <ng-container matColumnDef="quantity">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="column-icon">line_weight</mat-icon> Quantity </th>
       <td mat-cell *matCellDef="let supply"> {{supply.quantity}} </td>
     </ng-container>
 
     <!-- Supplies Taken Column -->
     <ng-container matColumnDef="supplies_taken">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Supplies Taken </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="column-icon">check_box</mat-icon> Supplies Taken </th>
       <td mat-cell *matCellDef="let supply"> {{supply.suppliesTaken}} </td>
     </ng-container>
 
     <!-- Supplies Left Column -->
     <ng-container matColumnDef="supplies_left">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Supplies Left </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="column-icon">indeterminate_check_box</mat-icon> Supplies Left </th>
       <td mat-cell *matCellDef="let supply"> {{supply.suppliesLeft}} </td>
     </ng-container>
 
     <!-- Cost Per Unit Column -->
     <ng-container matColumnDef="cost_per_unit">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cost per Unit </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="column-icon">attach_money</mat-icon> Cost per Unit </th>
       <td mat-cell *matCellDef="let supply"> {{supply.costPerUnit | currency:"PHP"}} </td>
     </ng-container>
 
     <!-- Total Column -->
     <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="column-icon">money</mat-icon> Total </th>
       <td mat-cell *matCellDef="let supply"> {{supply.total | currency:"PHP"}} </td>
     </ng-container>
 

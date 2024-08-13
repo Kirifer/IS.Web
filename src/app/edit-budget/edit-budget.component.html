@@ -1,0 +1,35 @@
+<div mat-dialog-title>
+    <h5><span class="material-icons">
+      inventory
+      </span> Edit Item</h5>
+</div>
+
+<form [formGroup]="supplyForm">
+<div mat-dialog-content class="content">
+    <div class="row">
+          <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <input matInput type="text" formControlName="dateCreated">
+          </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="outline">
+            <mat-label>Item</mat-label>
+            <input matInput type="text" placeholder="0" formControlName="budget">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Color</mat-label>
+            <input matInput type="text" formControlName="expenses">
+          </mat-form-field>
+    </div>
+
+
+</div>
+
+<div mat-dialog-actions class="action">
+    <button mat-raised-button (click)="close()">Cancel</button>
+    <button class="add-but" mat-raised-button type="submit" (click)="save()"><mat-icon>input</mat-icon>Save</button>
+</div>
+</form>

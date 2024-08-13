@@ -180,4 +180,8 @@ tr:hover {
 .delete-btn {
   color: #cf0000f8;
 }
-
+.column-icon{
+  font-size: 20px;
+  color: #000000;
+  margin-right: 1px;
+}

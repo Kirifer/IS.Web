@@ -38,6 +38,8 @@ import { EditCodeComponent } from './edit-code/edit-code.component';
 import { BudgetComponent } from './budget/budget.component';
 import { DatePipe } from '@angular/common';
 import { ExcelExportService } from './service/excel-export.service';
+import { AddEditBudgetComponent } from './add-edit-budget/add-edit-budget.component';
+import { EditBudgetComponent } from './edit-budget/edit-budget.component';
 
  
 
@@ -56,7 +58,9 @@ import { ExcelExportService } from './service/excel-export.service';
     AddEditCodesComponent,
     EditSupplyComponent,
     EditCodeComponent,
-    BudgetComponent
+    BudgetComponent,
+    AddEditBudgetComponent,
+    EditBudgetComponent
   ],
   imports: [
     BrowserModule,
