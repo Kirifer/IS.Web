@@ -10,36 +10,6 @@
 </head>
 <body>
   <div class="container" [ngClass]="isSignDivVisiable ? 'active' : ''" id="container">
-    <!-- Register Form -->
-    <div class="form-container sign-up">
-      <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
-        <h1>Register Account</h1>
-        
-        <!-- Admin Name Field -->
-        <input matInput type="text" name="name" [(ngModel)]="signUpObj.name" placeholder="Admin Name" required>
-        <div *ngIf="registerForm.submitted && registerForm.controls['name']">
-        </div>
-        <i class="shield"><span class="material-symbols-outlined">shield_person</span></i>
-
-        <!-- Username Field -->
-        <input  matInput type="email" name="username" [(ngModel)]="signUpObj.username" placeholder="Username" required>
-        <div *ngIf="registerForm.submitted && registerForm.controls['username']">
-        </div>
-        <i class="person"><span class="material-symbols-outlined">person</span></i>
-
-        <!-- Password Field -->
-        <input matInput type="password" name="password" [(ngModel)]="signUpObj.password" placeholder="Password" [type]="isPasswordVisible ? 'text' : 'password'" id="password-1" required>
-        <div *ngIf="registerForm.submitted && registerForm.controls['password']">
-        </div>
-        <i class="lock"><span class="material-symbols-outlined">lock</span></i>
-        <i id="visibilityBtn" (click)="toggleVisibility()">
-          <span id="icon" class="material-symbols-outlined">{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</span>
-        </i>
-        
-        <!--Button Field-->
-        <button type="submit" mat-flat-button>Register</button>
-      </form>
-    </div>
     
     <!-- Sign-In Form -->
     <div class="form-container sign-in">
@@ -47,7 +17,7 @@
         <h1>Sign In</h1>
 
         <!-- Username Field -->
-        <input matInput type="email" name="username" [(ngModel)]="loginObj.username" placeholder="Username" required>
+        <input matInput type="email" name="username" [(ngModel)]="loginObj.username" placeholder="Username/Email" required>
         <div *ngIf="signInForm.submitted && signInForm.controls['username']">
         </div>
         <i class="person"><span class="material-symbols-outlined">person</span></i>
@@ -69,21 +39,11 @@
     <!--Toggle Container-->
     <div class="toggle-container">
       <div class="toggle">
-    <!--Toggle Left-->
         <div class="toggle-panel toggle-left">
           <img src="assets/logo.png" alt="Company Logo">
           <h1>IT Squarehub</h1>
           <p>Building Quality Services Without Compromise</p>
           <h3>Inventory Management System</h3>
-          <button class="hidden" id="register" mat-flat-button (click)="isSignDivVisiable = false">Sign In</button>
-        </div>
-     <!--Toggle Left-->
-        <div class="toggle-panel toggle-right">
-          <img src="assets/logo.png" alt="Company Logo">
-          <h1>IT Squarehub</h1>
-          <p>Building Quality Services Without Compromise</p>
-          <h3>Inventory Management System</h3>
-          <button class="hidden" id="register" mat-flat-button (click)="isSignDivVisiable = true">Register</button>
         </div>
       </div>
     </div>

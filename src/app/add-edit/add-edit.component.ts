@@ -50,7 +50,7 @@ export class AddEditComponent implements OnInit {
     const costPerUnit = this.empForm.get('costPerUnit')?.value || 0;
 
     const suppliesLeft = quantity - suppliesTaken;
-    const total = costPerUnit * suppliesLeft;
+    const total = quantity * costPerUnit;
 
     this.empForm.patchValue({
       suppliesLeft: suppliesLeft,
@@ -63,17 +63,45 @@ export class AddEditComponent implements OnInit {
     this.updateDerivedFields(); // ensure calculations are up-to-date
 
     if (this.empForm.valid) {
-      const formData: Supply = this.empForm.getRawValue(); // get the actual form values including disabled fields
+      const formData: Supply = this.empForm.getRawValue();
       formData.dateCreated = new Date();
-      this.http.post('https://localhost:7012/supplies', formData).subscribe({
-        next: response => {
-          console.log('Data successfully submitted', response);
-          this.dialogRef.close();
-        },
-        error: error => {
-          console.error('Error submitting data', error);
-        }
-      });
+  
+      const { category, item, color, size, costPerUnit } = formData;
+  
+      // Encode query parameters to handle special characters
+      const queryParams = new URLSearchParams({
+        category: encodeURIComponent(category),
+        item: encodeURIComponent(item),
+        color: encodeURIComponent(color),
+        size: encodeURIComponent(size),
+        costPerUnit: encodeURIComponent(costPerUnit.toString())
+      }).toString();
+  
+      // Check if a record with the same category, item, color, size, and costPerUnit already exists
+      this.http.get<Supply[]>(`https://localhost:7012/supplies?${queryParams}`)
+        .subscribe({
+          next: (existingSupplies) => {
+            if (existingSupplies.length > 0) {
+              // If a matching record is found, update it using the id
+              const existingSupply = existingSupplies[0];
+              formData.id = existingSupply.id;
+  
+              // Optional: Update other fields if needed, e.g., increase quantity
+              formData.quantity += existingSupply.quantity; 
+  
+              // Update the existing record
+              this.updateData(formData);
+            } else {
+              // If no matching record is found, create a new one
+              this.createData(formData);
+            }
+          },
+          error: error => {
+            console.error('Error checking for existing data', error);
+          }
+        });
+      
+      // this creates data to the supply codes table
       this.http.post('https://localhost:7012/supplycodes', formData).subscribe({
         next: response => {
           console.log('Data successfully submitted', response);
