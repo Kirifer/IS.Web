@@ -6,11 +6,12 @@ import { SupplyComponent } from './supply/supply.component';
 import { LoginRegisterComponent } from './login-register/login-register.component';
 import { CodesComponent } from './codes/codes.component';
 import { BudgetComponent } from './budget/budget.component';
+import { authGuard } from './auth.guard';
 
 const routes: Routes = [
   {
     path:'',
-    redirectTo: 'login',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   {
@@ -19,19 +20,23 @@ const routes: Routes = [
   },
   {
     path: "dashboard",
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [authGuard]
   },
   {
     path: "supply",
-    component: SupplyComponent
+    component: SupplyComponent,
+    canActivate: [authGuard]
   },
   {
     path: "codes",
-    component: CodesComponent
+    component: CodesComponent,
+    canActivate: [authGuard]
   },
   {
     path: "budget",
-    component: BudgetComponent
+    component: BudgetComponent,
+    canActivate: [authGuard]
   },
   
 ];

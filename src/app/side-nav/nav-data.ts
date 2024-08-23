@@ -20,9 +20,10 @@ export const navbarData = [
         label: 'Budget & Expenses'
     },
     {
-        routeLink: 'login',
+        routeLink: '',
         icon: 'fal fa-sign-out  ',
-        label: 'Logout'
-    },
+        label: 'Logout',
+        action: 'logout'
+    }
     
 ]

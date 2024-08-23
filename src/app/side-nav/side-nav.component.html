@@ -1,23 +1,24 @@
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
     <div class="logo-container">
         <button class="logo" (click)="toggleCollapse()">
-            <img class = "logo-img" src="assets/logo.png" alt="logo">
+            <img class="logo-img" src="assets/logo.png" alt="logo">
         </button>
         <div class="logo-text" @fadeInOut *ngIf="collapsed">ITSquarehub
-            <div class="logo-text1" @fadeInOut *ngIf="collapsed"><p>Inventory Managemenet System</p></div>
+            <div class="logo-text1" @fadeInOut *ngIf="collapsed"><p>Inventory Management System</p></div>
         </div>
         
         <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">
             <i class="fal fa-times close-icon"></i>
         </button>
-
     </div>
     
     <ul class="sidenav-nav">
         <li class="sidenav-nav-item" *ngFor="let data of navData">
-            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact: true}"
+            <a class="sidenav-nav-link" 
+               [routerLink]="[data.routeLink]"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: true}"
+               (click)="onNavItemClick(data)"
             >
                 <i class="sidenav-link-icon" [class]="data.icon"></i>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
