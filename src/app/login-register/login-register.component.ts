@@ -25,7 +25,7 @@ export class LoginRegisterComponent {
       this.authService.login(this.loginObj.username, this.loginObj.password).subscribe(isLoggedIn => {
         if (isLoggedIn) {
           alert('Redirecting you to the Dashboard..');
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('dashboard');
         } else {
           alert('Invalid credentials');
         }
@@ -40,12 +40,10 @@ export class LoginRegisterComponent {
 }
 
 export class LoginModel {
-  name: string;
   username: string;
   password: string;
 
   constructor() {
-    this.name = "";
     this.username = "";
     this.password = "";
   }

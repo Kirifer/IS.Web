@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -24,6 +24,8 @@ export class AppComponent {
   }
 
   get isAdminLogin(): boolean{
-    return this.router.url == '/login';
-  }
+    return this.router.url === '/login';
+    }
+
+
 }

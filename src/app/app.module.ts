@@ -40,6 +40,7 @@ import { DatePipe } from '@angular/common';
 import { ExcelExportService } from './service/excel-export.service';
 import { AddEditBudgetComponent } from './add-edit-budget/add-edit-budget.component';
 import { EditBudgetComponent } from './edit-budget/edit-budget.component';
+import { AuthGuard } from './auth.guard';
 
  
 
@@ -91,7 +92,7 @@ import { EditBudgetComponent } from './edit-budget/edit-budget.component';
     
     
   ],
-  providers: [
+  providers: [AuthGuard,
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent,ExcelExportService]

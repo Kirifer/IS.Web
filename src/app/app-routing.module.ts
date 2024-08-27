@@ -6,37 +6,37 @@ import { SupplyComponent } from './supply/supply.component';
 import { LoginRegisterComponent } from './login-register/login-register.component';
 import { CodesComponent } from './codes/codes.component';
 import { BudgetComponent } from './budget/budget.component';
-import { authGuard } from './auth.guard';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
     path:'',
-    redirectTo: '/login',
-    pathMatch: 'full'
+    redirectTo: 'login',
+    pathMatch: 'full',
   },
   {
     path:'login',
-    component: LoginRegisterComponent
+    component: LoginRegisterComponent,
   },
   {
     path: "dashboard",
     component: DashboardComponent,
-    canActivate: [authGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: "supply",
     component: SupplyComponent,
-    canActivate: [authGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: "codes",
     component: CodesComponent,
-    canActivate: [authGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: "budget",
     component: BudgetComponent,
-    canActivate: [authGuard]
+    canActivate: [AuthGuard]
   },
   
 ];
