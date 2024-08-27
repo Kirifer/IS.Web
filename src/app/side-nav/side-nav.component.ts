@@ -55,6 +55,12 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
+
+    this.router.events.subscribe((event: any) => {
+      if(event.url === '/logout') {
+        this.logout();
+      }
+    })
   }
 
   toggleCollapse(): void {
@@ -77,5 +83,6 @@ export class SideNavComponent implements OnInit {
   }
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
