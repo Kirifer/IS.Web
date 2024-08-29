@@ -82,10 +82,15 @@
           <div id="tableToPrint">
               <table mat-table [dataSource]="dataSource" matSort>
                   <!-- Code Column -->
-                  <ng-container matColumnDef="dateCreated">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                      <td mat-cell *matCellDef="let row">{{row.dateCreated}}</td>
+                  <ng-container matColumnDef="monthCreated">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Month </th>
+                      <td mat-cell *matCellDef="let row">{{row.monthCreated}}</td>
                   </ng-container>
+                  <!-- Code Column -->
+                  <ng-container matColumnDef="yearCreated">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Year </th>
+                    <td mat-cell *matCellDef="let row">{{row.yearCreated}}</td>
+                </ng-container>
                   <!-- Category Column -->
                   <ng-container matColumnDef="budget">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Budget </th>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+
 @Component({
   selector: 'app-login-register',
   templateUrl: './login-register.component.html',
@@ -22,14 +23,18 @@ export class LoginRegisterComponent {
 
   onLogin(signInForm: any) {
     if (signInForm.valid) {
-      this.authService.login(this.loginObj.username, this.loginObj.password).subscribe(isLoggedIn => {
-        if (isLoggedIn) {
+      const username = this.loginObj.username;
+      const password = this.loginObj.password;
+
+      this.authService.login(username, password).subscribe(response => {
+        if (response.succeeded) {
           alert('Redirecting you to the Dashboard..');
           this.router.navigateByUrl('dashboard');
         } else {
           alert('Invalid credentials');
         }
       });
+
       // Clear the form after login attempt
       this.loginObj = new LoginModel();
       signInForm.resetForm();
@@ -40,7 +45,7 @@ export class LoginRegisterComponent {
 }
 
 export class LoginModel {
-  username: string;
+  username: string; // This can be either username or email
   password: string;
 
   constructor() {

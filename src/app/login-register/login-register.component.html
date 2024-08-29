@@ -13,8 +13,8 @@
       <form #signInForm="ngForm" (ngSubmit)="onLogin(signInForm)">
         <h1>Sign In</h1>
 
-        <!-- Username Field -->
-        <input matInput type="email" name="username" [(ngModel)]="loginObj.username" placeholder="Username/Email" required>
+        <!-- Identifier Field (Username or Email) -->
+        <input matInput type="text" name="username" [(ngModel)]="loginObj.username" placeholder="Username" required>
         <div *ngIf="signInForm.submitted && signInForm.controls['username']">
         </div>
         <i class="person"><span class="material-symbols-outlined">person</span></i>

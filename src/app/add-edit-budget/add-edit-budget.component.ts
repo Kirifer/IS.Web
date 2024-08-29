@@ -3,12 +3,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { BudgetExpenses } from '../models/budgetexpenses';
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-add-edit-budget',
   templateUrl: './add-edit-budget.component.html',
   styleUrl: './add-edit-budget.component.css'
 })
 export class AddEditBudgetComponent {
+  private budgetUrl = environment.budgetUrl;
+
   empForm: FormGroup;
   months = [
     { value: 'JAN', viewValue: 'January' },
@@ -42,7 +45,7 @@ export class AddEditBudgetComponent {
   onFormSubmit(){
     if(this.empForm.valid){
       const formData: BudgetExpenses = this.empForm.value;
-      this.http.post('https://localhost:7012/budget-expenses', formData).subscribe({
+      this.http.post(this.budgetUrl, formData).subscribe({
         next: response => {
           console.log('Data successfully submitted', response);
           this.dialogRef.close();

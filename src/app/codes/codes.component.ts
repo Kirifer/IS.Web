@@ -15,6 +15,7 @@ import { JsonPipe } from '@angular/common';
 import { EditCodeComponent } from '../edit-code/edit-code.component';
 import { Supply } from '../models/supply';
 import { ExcelExportService } from '../service/excel-export.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-codes',
@@ -22,6 +23,8 @@ import { ExcelExportService } from '../service/excel-export.service';
   styleUrl: './codes.component.css'
 })
 export class CodesComponent {
+  private codesUrl = environment.codesUrl;
+  private supplyUrl = environment.supplyUrl;
 
   displayedColumns: string[] = ['codeDisplay', 'category', 'item', 'color', 'size','numberOfSupplies', 'supplyTaken','action'];
   dataSource = new MatTableDataSource<SupplyCodes>();
@@ -50,7 +53,7 @@ export class CodesComponent {
 
   // http get
   private getSupplyCodes(): Observable<SupplyCodes[]> {
-    return this.http.get<{ data: SupplyCodes[] }>('https://localhost:7012/supplycodes').pipe(
+    return this.http.get<{ data: SupplyCodes[] }>(`${this.codesUrl}`).pipe(
       map(response => response.data),
       tap(data => console.log('Data received', data)),
       catchError(error => {
@@ -62,7 +65,7 @@ export class CodesComponent {
 
   // http delete
   deleteSupply(id: string) {
-    this.http.delete(`https://localhost:7012/supplycodes/${id}`).subscribe({
+    this.http.delete(`${this.codesUrl}/${id}`).subscribe({
       next: () => {
         console.log('Supply successfully deleted');
         // Ensure id is a string for comparison
@@ -98,7 +101,7 @@ export class CodesComponent {
     });
   }
   updateSupply(supply: SupplyCodes) {
-    this.http.put(`https://localhost:7012/supplycodes/${supply.id}`, supply).subscribe({
+    this.http.put(`${this.codesUrl}/${supply.id}`, supply).subscribe({
       next: () => {
         const index = this.dataSource.data.findIndex(item => item.id === supply.id);
         if (index !== -1) {
@@ -117,7 +120,7 @@ export class CodesComponent {
     row.supplyTaken = isChecked;
     console.log('Updating supply taken status with row data:', row);
 
-    this.http.put(`https://localhost:7012/supplycodes/${row.id}`, row)
+    this.http.put(`${this.codesUrl}/${row.id}`, row)
       .subscribe({
         next: response => {
           console.log('Supply taken status updated', response);
@@ -127,14 +130,14 @@ export class CodesComponent {
           if (error.status === 400) {
             console.error('Bad Request: Please check the payload and endpoint.');
             console.error('Payload:', row);
-            console.error('Endpoint:', `https://localhost:7012/supplycodes/${row.id}`);
+            console.error('Endpoint:', `${this.codesUrl}/${row.id}`);
           }
         }
       });
     
     // this will update the supplies table (if chekced, suppliesTaken will increment by 1, if unchecked, suppliesTaken will decrement by 1)
     if (isChecked) {
-      this.http.get<{ data: Supply[] }>('https://localhost:7012/supplies', {
+      this.http.get<{ data: Supply[] }>(`${this.supplyUrl}`, {
         params: {
           category: row.category,
           officeSupplies: row.officeSupplies,
@@ -159,7 +162,7 @@ export class CodesComponent {
               exactMatch.suppliesTaken -= 1;
             }
             console.log('Payload for updating supplies table:', exactMatch);
-            return this.http.put(`https://localhost:7012/supplies/${exactMatch.id}`, exactMatch);
+            return this.http.put(`${this.supplyUrl}/${exactMatch.id}`, exactMatch);
           } else {
             return throwError(() => new Error('No matching supply found'));
           }
@@ -176,7 +179,7 @@ export class CodesComponent {
   }
 
   updateSupplyTakenStatus(row: any) {
-    this.http.put(`https://localhost:7012/supplycodes/${row.id}`, row)
+    this.http.put(`${this.codesUrl}/${row.id}`, row)
       .subscribe({
         next: response => {
           console.log('Supply taken status updated', response);
@@ -186,7 +189,7 @@ export class CodesComponent {
           if (error.status === 400) {
             console.error('Bad Request: Please check the payload and endpoint.');
             console.error('Payload:', row);
-            console.error('Endpoint:', `https://localhost:7012/supplycodes/${row.id}`);
+            console.error('Endpoint:', `${this.codesUrl}/${row.id}`);
           }
         }
       });

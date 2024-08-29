@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Supply } from '../models/supply';
 import { SupplyCodes } from '../models/supplycodes';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-add-edit',
@@ -11,6 +12,9 @@ import { SupplyCodes } from '../models/supplycodes';
   styleUrls: ['./add-edit.component.css']
 })
 export class AddEditComponent implements OnInit {
+  private supplyUrl = environment.supplyUrl;
+  private codesUrl = environment.codesUrl;
+  
   empForm: FormGroup;
   
 
@@ -78,7 +82,7 @@ export class AddEditComponent implements OnInit {
       }).toString();
   
       // Check if a record with the same category, item, color, size, and costPerUnit already exists
-      this.http.get<Supply[]>(`https://localhost:7012/supplies?${queryParams}`)
+      this.http.get<Supply[]>(`${this.supplyUrl}?${queryParams}`)
         .subscribe({
           next: (existingSupplies) => {
             if (existingSupplies.length > 0) {
@@ -102,7 +106,7 @@ export class AddEditComponent implements OnInit {
         });
       
       // this creates data to the supply codes table
-      this.http.post('https://localhost:7012/supplycodes', formData).subscribe({
+      this.http.post(this.codesUrl, formData).subscribe({
         next: response => {
           console.log('Data successfully submitted', response);
           this.dialogRef.close();
@@ -118,7 +122,7 @@ export class AddEditComponent implements OnInit {
 
   // create 
   createData(formData: Supply) {
-    this.http.post('https://localhost:7012/supplies', formData).subscribe({
+    this.http.post(this.supplyUrl, formData).subscribe({
       next: response => {
         console.log('Data successfully submitted', response);
         this.dialogRef.close();
@@ -131,7 +135,7 @@ export class AddEditComponent implements OnInit {
 
   // create for SupplyCodes
   createSupplyCodes(formData: SupplyCodes){
-    this.http.post('https://localhost:7012/supplycodes', formData).subscribe({
+    this.http.post(this.codesUrl, formData).subscribe({
       next: response => {
         console.log('Data successfully submitted', response);
         this.dialogRef.close();
@@ -144,7 +148,7 @@ export class AddEditComponent implements OnInit {
 
   // update
   updateData(formData: Supply) {
-    this.http.put(`https://localhost:7012/supplies/${formData.id}`, formData).subscribe({
+    this.http.put(`${this.supplyUrl}/${formData.id}`, formData).subscribe({
       next: response => {
         console.log('Data successfully updated', response);
         this.dialogRef.close();

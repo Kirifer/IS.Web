@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { SupplyCodes } from '../models/supplycodes';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-add-edit-codes',
@@ -10,6 +11,7 @@ import { SupplyCodes } from '../models/supplycodes';
   styleUrl: './add-edit-codes.component.css'
 })
 export class AddEditCodesComponent {
+  private codesUrl = environment.codesUrl;
   empForm: FormGroup;
 
 
@@ -38,7 +40,7 @@ export class AddEditCodesComponent {
   onFormSubmit(){
     if(this.empForm.valid){
       const formData: SupplyCodes = this.empForm.value;
-      this.http.post('https://localhost:7012/supplycodes', formData).subscribe({
+      this.http.post(this.codesUrl, formData).subscribe({
         next: response => {
           console.log('Data successfully submitted', response);
           this.dialogRef.close();

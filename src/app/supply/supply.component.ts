@@ -9,6 +9,7 @@ import { Observable,of,tap,throwError,map,catchError, } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { EditSupplyComponent } from '../edit-supply/edit-supply.component';
 import { ExcelExportService } from '../service/excel-export.service';
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -17,6 +18,8 @@ import { ExcelExportService } from '../service/excel-export.service';
   styleUrls: ['./supply.component.css']
 })
 export class SupplyComponent implements OnInit, AfterViewInit {
+  private supplyUrl = environment.supplyUrl;
+
   displayedColumns: string[] = ['category', 'item', 'color', 'size', 'quantity', 'supplies_taken', 'supplies_left', 'cost_per_unit', 'total', 'action'];
   dataSource = new MatTableDataSource<Supply>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -39,7 +42,7 @@ export class SupplyComponent implements OnInit, AfterViewInit {
   // http get
   // Fetching data from the web API
   private getSupplies(): Observable<Supply[]>{
-    return this.http.get<{data: Supply[]}>('https://localhost:7012/supplies').pipe(
+    return this.http.get<{data: Supply[]}>(this.supplyUrl).pipe(
       map(response => response.data),
       tap(data => console.log('Data received',data)),
       catchError(error => {
@@ -52,7 +55,7 @@ export class SupplyComponent implements OnInit, AfterViewInit {
   // http delete
   // Deleting an item from the table
   deleteSupply(id: string) {
-    this.http.delete(`https://localhost:7012/supplies/${id}`).subscribe({
+    this.http.delete(`${this.supplyUrl}/${id}`).subscribe({
       next: () => {
         console.log('Supply successfully deleted');
         // Ensure id is a string for comparison
@@ -91,7 +94,7 @@ export class SupplyComponent implements OnInit, AfterViewInit {
   }
   // Updating the editted supply
   updateSupply(supply: Supply) {
-    this.http.put(`https://localhost:7012/supplies/${supply.id}`, supply).subscribe({
+    this.http.put(`${this.supplyUrl}/${supply.id}`, supply).subscribe({
       next: () => {
         const index = this.dataSource.data.findIndex(item => item.id === supply.id);
         if (index !== -1) {

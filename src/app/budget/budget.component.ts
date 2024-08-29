@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BudgetExpenses } from '../models/budgetexpenses';
 import { AddEditBudgetComponent } from '../add-edit-budget/add-edit-budget.component';
 import { EditBudgetComponent } from '../edit-budget/edit-budget.component';
+import { environment } from '../../environments/environment';
 
 Chart.register(...registerables);
 
@@ -18,10 +19,12 @@ Chart.register(...registerables);
   styleUrls: ['./budget.component.css']
 })
 export class BudgetComponent implements OnInit, AfterViewInit {
+  private budgetUrl = environment.budgetUrl;
+
   totalBudget: number = 0;
   totalExpenses: number = 0;
   totalLeft: number = 0;
-  displayedColumns: string[] = ['dateCreated', 'budget', 'expenses', 'totalBudget', 'action'];
+  displayedColumns: string[] = ['monthCreated','yearCreated', 'budget', 'expenses', 'totalBudget', 'action'];
   dataSource = new MatTableDataSource<BudgetExpenses>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -55,7 +58,7 @@ export class BudgetComponent implements OnInit, AfterViewInit {
   }
 
   private getBudgetExpenses(): Observable<BudgetExpenses[]> {
-    return this.http.get<{ data: BudgetExpenses[] }>('https://localhost:7012/budget-expenses').pipe(
+    return this.http.get<{ data: BudgetExpenses[] }>(`${this.budgetUrl}`).pipe(
       map(response => response.data),
       tap(data => console.log('Data received', data)),
       catchError(error => {
@@ -113,7 +116,7 @@ export class BudgetComponent implements OnInit, AfterViewInit {
 
   private formatDate(dateCreated: string): string {
     const date = new Date(dateCreated);
-    const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];  
     return monthNames[date.getMonth()];
   }
 
@@ -150,7 +153,7 @@ export class BudgetComponent implements OnInit, AfterViewInit {
 }
 
   deleteBudgetExpenses(id: string) {
-    this.http.delete(`https://localhost:7012/budget-expenses/${id}`).subscribe({
+    this.http.delete(`${this.budgetUrl}/${id}`).subscribe({
       next: () => {
         console.log('Supply successfully deleted');
         this.dataSource.data = this.dataSource.data.filter((budget: BudgetExpenses) => budget.id !== id);
@@ -175,7 +178,7 @@ export class BudgetComponent implements OnInit, AfterViewInit {
   }
 
   updateSupply(supply: BudgetExpenses) {
-    this.http.put(`https://localhost:7012/budget-expenses/${supply.id}`, supply).subscribe({
+    this.http.put(`${this.budgetUrl}/${supply.id}`, supply).subscribe({
       next: () => {
         const index = this.dataSource.data.findIndex(item => item.id === supply.id);
         if (index !== -1) {
