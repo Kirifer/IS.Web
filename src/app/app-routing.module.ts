@@ -38,6 +38,11 @@ const routes: Routes = [
     component: BudgetComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: "**",
+    redirectTo: '',
+  }
+
   
 ];
 

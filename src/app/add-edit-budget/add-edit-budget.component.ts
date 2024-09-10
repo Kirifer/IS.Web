@@ -45,7 +45,7 @@ export class AddEditBudgetComponent {
   onFormSubmit(){
     if(this.empForm.valid){
       const formData: BudgetExpenses = this.empForm.value;
-      this.http.post(this.budgetUrl, formData).subscribe({
+      this.http.post(this.budgetUrl, formData,{withCredentials: true}).subscribe({
         next: response => {
           console.log('Data successfully submitted', response);
           this.dialogRef.close();

@@ -9,4 +9,5 @@ export interface SupplyCodes {
     quantity: number;
     supplyTaken: boolean;
     codeDisplay: string;
+    userId: string;
 }

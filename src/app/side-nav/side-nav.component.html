@@ -18,7 +18,6 @@
                [routerLink]="[data.routeLink]"
                routerLinkActive="active"
                [routerLinkActiveOptions]="{exact: true}"
-               (click)="onNavItemClick(data)"
             >
                 <i class="sidenav-link-icon" [class]="data.icon"></i>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">

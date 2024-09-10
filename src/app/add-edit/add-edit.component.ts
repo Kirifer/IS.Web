@@ -36,7 +36,8 @@ export class AddEditComponent implements OnInit {
       total: [{value: 0, disabled: true}],
       dateCreated: [{value: new Date(), disabled: true  }],
       code: [''],
-      supplyTaken: ['']
+      supplyTaken: [''],
+      
     });
   }
   
@@ -82,7 +83,7 @@ export class AddEditComponent implements OnInit {
       }).toString();
   
       // Check if a record with the same category, item, color, size, and costPerUnit already exists
-      this.http.get<Supply[]>(`${this.supplyUrl}?${queryParams}`)
+      this.http.get<Supply[]>(`${this.supplyUrl}?${queryParams}`,{withCredentials: true}) // widhCredentials: true is used to send cookies
         .subscribe({
           next: (existingSupplies) => {
             if (existingSupplies.length > 0) {
@@ -106,7 +107,7 @@ export class AddEditComponent implements OnInit {
         });
       
       // this creates data to the supply codes table
-      this.http.post(this.codesUrl, formData).subscribe({
+      this.http.post(this.codesUrl, formData,{withCredentials: true}).subscribe({ // widhCredentials: true is used to send cookies
         next: response => {
           console.log('Data successfully submitted', response);
           this.dialogRef.close();
@@ -122,7 +123,7 @@ export class AddEditComponent implements OnInit {
 
   // create 
   createData(formData: Supply) {
-    this.http.post(this.supplyUrl, formData).subscribe({
+    this.http.post(this.supplyUrl, formData,{withCredentials: true}).subscribe({
       next: response => {
         console.log('Data successfully submitted', response);
         this.dialogRef.close();
@@ -135,7 +136,7 @@ export class AddEditComponent implements OnInit {
 
   // create for SupplyCodes
   createSupplyCodes(formData: SupplyCodes){
-    this.http.post(this.codesUrl, formData).subscribe({
+    this.http.post(this.codesUrl, formData,{withCredentials: true}).subscribe({
       next: response => {
         console.log('Data successfully submitted', response);
         this.dialogRef.close();

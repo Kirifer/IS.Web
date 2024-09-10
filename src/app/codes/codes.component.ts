@@ -53,7 +53,7 @@ export class CodesComponent {
 
   // http get
   private getSupplyCodes(): Observable<SupplyCodes[]> {
-    return this.http.get<{ data: SupplyCodes[] }>(`${this.codesUrl}`).pipe(
+    return this.http.get<{ data: SupplyCodes[] }>(`${this.codesUrl}`,{withCredentials: true}).pipe(
       map(response => response.data),
       tap(data => console.log('Data received', data)),
       catchError(error => {
@@ -65,7 +65,7 @@ export class CodesComponent {
 
   // http delete
   deleteSupply(id: string) {
-    this.http.delete(`${this.codesUrl}/${id}`).subscribe({
+    this.http.delete(`${this.codesUrl}/${id}`,{withCredentials: true}).subscribe({
       next: () => {
         console.log('Supply successfully deleted');
         // Ensure id is a string for comparison
@@ -101,7 +101,7 @@ export class CodesComponent {
     });
   }
   updateSupply(supply: SupplyCodes) {
-    this.http.put(`${this.codesUrl}/${supply.id}`, supply).subscribe({
+    this.http.put(`${this.codesUrl}/${supply.id}`, supply,{withCredentials: true}).subscribe({
       next: () => {
         const index = this.dataSource.data.findIndex(item => item.id === supply.id);
         if (index !== -1) {
@@ -120,7 +120,7 @@ export class CodesComponent {
     row.supplyTaken = isChecked;
     console.log('Updating supply taken status with row data:', row);
 
-    this.http.put(`${this.codesUrl}/${row.id}`, row)
+    this.http.put(`${this.codesUrl}/${row.id}`, row,{withCredentials: true})
       .subscribe({
         next: response => {
           console.log('Supply taken status updated', response);
@@ -143,7 +143,8 @@ export class CodesComponent {
           officeSupplies: row.officeSupplies,
           color: row.color,
           size: row.size
-        }
+        },
+        withCredentials: true
       }).pipe(
         map(response => response.data),
         switchMap(supplies => {
@@ -162,7 +163,7 @@ export class CodesComponent {
               exactMatch.suppliesTaken -= 1;
             }
             console.log('Payload for updating supplies table:', exactMatch);
-            return this.http.put(`${this.supplyUrl}/${exactMatch.id}`, exactMatch);
+            return this.http.put(`${this.supplyUrl}/${exactMatch.id}`, exactMatch,{withCredentials: true});
           } else {
             return throwError(() => new Error('No matching supply found'));
           }
@@ -179,7 +180,7 @@ export class CodesComponent {
   }
 
   updateSupplyTakenStatus(row: any) {
-    this.http.put(`${this.codesUrl}/${row.id}`, row)
+    this.http.put(`${this.codesUrl}/${row.id}`, row,{withCredentials: true})
       .subscribe({
         next: response => {
           console.log('Supply taken status updated', response);

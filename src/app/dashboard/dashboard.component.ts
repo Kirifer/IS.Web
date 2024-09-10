@@ -12,6 +12,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {CurrencyPipe} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 Chart.register(...registerables);
 
@@ -22,8 +23,11 @@ Chart.register(...registerables);
 })
 
 export class DashboardComponent implements OnInit {
+
   displayedColumns: string[] = ['date', 'category', 'item', 'color','size','quantity'];
   dataSource = new MatTableDataSource<Supply>();
+  supplyUrl = environment.supplyUrl;
+  identityUrl = environment.identityUrl;
 
   totalQuantity: number = 0;
   totalSuppliesTaken: number = 0;
@@ -66,7 +70,7 @@ export class DashboardComponent implements OnInit {
   // http get
   constructor(private http: HttpClient) {}
   private getSupplies(): Observable<Supply[]>{
-    return this.http.get<{data: Supply[]}>('https://localhost:7012/supplies').pipe(
+    return this.http.get<{data: Supply[]}>(this.supplyUrl,{withCredentials: true}).pipe(
       map(response => response.data),
       tap(data => console.log('Data received',data)),
       catchError(error => {
@@ -104,5 +108,6 @@ export class DashboardComponent implements OnInit {
       this.secondChart.update();
     }
   }
+
   
 }

@@ -1,3 +1,5 @@
+import { Action } from "rxjs/internal/scheduler/Action";
+
 export const navbarData = [
     {
         routeLink: 'dashboard',
@@ -23,7 +25,6 @@ export const navbarData = [
         routeLink: '/logout',
         icon: 'fal fa-sign-out  ',
         label: 'Logout',
-        clickHandler: 'onLogout'
     },
     
 ]

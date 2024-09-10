@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { navbarData } from './nav-data';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { AuthService } from '../service/auth.service';
@@ -56,11 +56,11 @@ export class SideNavComponent implements OnInit {
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
 
-    this.router.events.subscribe((event: any) => {
-      if(event.url === '/logout') {
+    this.router.events.subscribe((event) => {
+      if(event instanceof NavigationEnd && event.url === '/logout') {
         this.logout();
       }
-    })
+    });
   }
 
   toggleCollapse(): void {
@@ -73,16 +73,15 @@ export class SideNavComponent implements OnInit {
     this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
   }
 
-  onNavItemClick(item: any) {
-    if (item.action === 'logout') {
-      this.logout();
-      this.authService.logout();
-    } else {
-      // Handle navigation to routeLink
-    }
-  }
+  
   logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        console.error('Error during logout:', error);
+      }
+    });
   }
 }

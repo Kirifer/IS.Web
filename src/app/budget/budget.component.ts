@@ -58,7 +58,7 @@ export class BudgetComponent implements OnInit, AfterViewInit {
   }
 
   private getBudgetExpenses(): Observable<BudgetExpenses[]> {
-    return this.http.get<{ data: BudgetExpenses[] }>(`${this.budgetUrl}`).pipe(
+    return this.http.get<{ data: BudgetExpenses[] }>(`${this.budgetUrl}`,{withCredentials: true}).pipe(
       map(response => response.data),
       tap(data => console.log('Data received', data)),
       catchError(error => {
@@ -153,7 +153,7 @@ export class BudgetComponent implements OnInit, AfterViewInit {
 }
 
   deleteBudgetExpenses(id: string) {
-    this.http.delete(`${this.budgetUrl}/${id}`).subscribe({
+    this.http.delete(`${this.budgetUrl}/${id}`,{withCredentials: true}).subscribe({
       next: () => {
         console.log('Supply successfully deleted');
         this.dataSource.data = this.dataSource.data.filter((budget: BudgetExpenses) => budget.id !== id);
@@ -178,7 +178,7 @@ export class BudgetComponent implements OnInit, AfterViewInit {
   }
 
   updateSupply(supply: BudgetExpenses) {
-    this.http.put(`${this.budgetUrl}/${supply.id}`, supply).subscribe({
+    this.http.put(`${this.budgetUrl}/${supply.id}`, supply,{withCredentials: true}).subscribe({
       next: () => {
         const index = this.dataSource.data.findIndex(item => item.id === supply.id);
         if (index !== -1) {

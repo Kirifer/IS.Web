@@ -42,4 +42,11 @@
   .icon-size {
     font-size: 48px;  
   }
+  .user-container {
+    margin-bottom: 20px;
+  }
+  
+  .example-card {
+    text-align: center;
+  }
   

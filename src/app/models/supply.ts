@@ -10,5 +10,6 @@ export interface Supply {
     costPerUnit: number;
     total: number;
     dateCreated: Date;
+    userId: string;
     
 }

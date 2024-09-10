@@ -40,7 +40,7 @@ export class AddEditCodesComponent {
   onFormSubmit(){
     if(this.empForm.valid){
       const formData: SupplyCodes = this.empForm.value;
-      this.http.post(this.codesUrl, formData).subscribe({
+      this.http.post(this.codesUrl, formData,{withCredentials: true}).subscribe({
         next: response => {
           console.log('Data successfully submitted', response);
           this.dialogRef.close();

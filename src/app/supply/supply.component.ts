@@ -42,7 +42,7 @@ export class SupplyComponent implements OnInit, AfterViewInit {
   // http get
   // Fetching data from the web API
   private getSupplies(): Observable<Supply[]>{
-    return this.http.get<{data: Supply[]}>(this.supplyUrl).pipe(
+    return this.http.get<{data: Supply[]}>(this.supplyUrl,{withCredentials: true}).pipe(
       map(response => response.data),
       tap(data => console.log('Data received',data)),
       catchError(error => {
@@ -55,7 +55,7 @@ export class SupplyComponent implements OnInit, AfterViewInit {
   // http delete
   // Deleting an item from the table
   deleteSupply(id: string) {
-    this.http.delete(`${this.supplyUrl}/${id}`).subscribe({
+    this.http.delete(`${this.supplyUrl}/${id}`,{withCredentials: true}).subscribe({
       next: () => {
         console.log('Supply successfully deleted');
         // Ensure id is a string for comparison
@@ -94,7 +94,7 @@ export class SupplyComponent implements OnInit, AfterViewInit {
   }
   // Updating the editted supply
   updateSupply(supply: Supply) {
-    this.http.put(`${this.supplyUrl}/${supply.id}`, supply).subscribe({
+    this.http.put(`${this.supplyUrl}/${supply.id}`, supply,{withCredentials: true}).subscribe({
       next: () => {
         const index = this.dataSource.data.findIndex(item => item.id === supply.id);
         if (index !== -1) {

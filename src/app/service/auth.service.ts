@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -13,57 +14,119 @@ export class AuthService {
   private identityUrl = environment.identityUrl;
   private loginUrl = environment.loginUrl;
   private logoutUrl = environment.logoutUrl;
-  private tokenKey = 'auth_token';
+  private currentUser: User | null = null;
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(this.loginUrl, { username, password }).pipe(
+  login(username: string, password: string): Observable<any>{
+    console.debug('Login attempt with username:', username);
+    const loginData = { username, password };
+    return this.http.post<any>(this.loginUrl, loginData, { withCredentials: true }).pipe(
       map(response => {
-        if (response.succeeded && response.data && response.data.token) {
-          // Store the token in a cookie
-          this.cookieService.set(this.tokenKey, response.data.token, { path: '/', secure: true, sameSite: 'Lax' });
+        console.debug('Login response:', response);
+        if (response.succeeded && response.data && response.data.token){
+          this.currentUser = {
+            ...response.data,
+            token: response.data.token,
+          };
+          console.log('Current user after login:', this.currentUser);
           return response;
-        } else {
-          throw new Error('Invalid credentials');
+        }else{
+          console.error('Login failed:', response);
         }
       }),
       catchError(error => {
-        console.error('Login failed', error);
-        return of({ succeeded: false });
+        console.error('Login error:', error);
+        return of(null)
       })
-    );
+    )
   }
 
-  logout(): void {
-    this.http.post(this.logoutUrl, {}, { withCredentials: true }).subscribe(
-      () => {
-        this.cookieService.delete(this.tokenKey, '/');
-        this.router.navigate(['/login']).then(() => {});
-        console.log('Logged out successfully');
-      },
-      error => {
-        console.error('Logout failed', error);
-      }
+logout(): Observable<any> {
+    console.debug('Logging out...');
+    
+    return this.http.post<any>(this.logoutUrl, {}, { withCredentials: true }).pipe(
+      tap(() => {
+        console.log('Logout successful.');
+        alert('You have been logged out successfully.');
+        this.router.navigate(['/login']);
+      }),
+      catchError(error => {
+        console.error('Logout error occurred:', error);
+        alert('An error occurred during logout. Please try again.');
+        return of(null);
+      })
     );
   }
 
   isAuthenticated(): Observable<boolean> {
-    const token = this.cookieService.get(this.tokenKey);
-    if (!token) {
-      return of(false);
+    console.debug('Fetching user identity');
+  
+    // Check if the user is already logged in by inspecting the current user
+    if (!this.currentUser) {
+      console.warn('User is not logged in, skipping identity fetch.');
+      // return of(false); // Return false immediately if not logged in
     }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(this.identityUrl, { headers }).pipe(
+  
+    return this.http.get<{ data: User, succeeded: boolean }>(this.identityUrl, { withCredentials: true }).pipe(
       map(response => {
-        return response.succeeded;
+        console.log('Identity response:', response); // Debugging log
+        if (response.succeeded) {
+          this.currentUser = {
+            ...response.data,
+          };
+          console.log('Current user during identity fetch:', this.currentUser); // Debugging log
+          return true; // Identity fetch successful
+        }
+        return false; // Identity fetch failed
       }),
       catchError(error => {
-        console.error('Authentication failed', error);
-        this.router.navigate(['/login']);
-        return of(false);
+        if (error.status === 401) {
+          console.warn('Unauthorized access, redirecting to login.');
+        } else {
+          console.error('Error fetching identity:', error); // Debugging log
+        }
+        this.router.navigate(['/login']); // Redirect to login on unauthorized access
+        return of(false); // Return false in case of error
       })
     );
   }
+
+  getCurrentUser(): User | null{
+    console.debug('Current user retrieved:', this.currentUser);
+    return this.currentUser;
+  }
+
+  // login(username: string, password: string): Observable<any> {
+  //   return this.http.post<any>(this.loginUrl, { username, password }).pipe(
+  //     map(response => {
+  //       if (response.succeeded && response.data && response.data.token) {
+  //         // Store the token in a cookie
+  //         this.cookieService.set(this.tokenKey, response.data.token, { path: '/', secure: true, sameSite: 'Lax' });
+  //         return response;
+  //       } else {
+  //         throw new Error('Invalid credentials');
+  //       }
+  //     }),
+  //     catchError(error => {
+  //       console.error('Login failed', error);
+  //       return of({ succeeded: false });
+  //     })
+  //   );
+  // }
+
+  // logout(): void {
+  //   this.http.post(this.logoutUrl, {}, { withCredentials: true }).subscribe(
+  //     () => {
+  //       this.cookieService.delete(this.tokenKey, '/');
+  //       this.router.navigate(['/login']).then(() => {});
+  //       console.log('Logged out successfully');
+  //     },
+  //     error => {
+  //       console.error('Logout failed', error);
+  //     }
+  //   );
+  // }
+
+ 
 }
