@@ -4,6 +4,7 @@ import { navbarData } from './nav-data';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { AuthService } from '../service/auth.service';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -58,7 +59,7 @@ export class SideNavComponent implements OnInit {
 
     this.router.events.subscribe((event) => {
       if(event instanceof NavigationEnd && event.url === '/logout') {
-        this.logout();
+        this.confirmLogout();
       }
     });
   }
@@ -84,4 +85,23 @@ export class SideNavComponent implements OnInit {
       }
     });
   }
+  
+  confirmLogout(): void {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to logout?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Logout',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.logout();
+      }
+    });
+  }
+
 }

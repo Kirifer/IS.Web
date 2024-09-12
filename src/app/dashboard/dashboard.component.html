@@ -1,11 +1,30 @@
+
 <!--Title-->
 <main class="main-container">
   <div class="main-title">
     <h2>DASHBOARD</h2>
+    
   </div>
 
   <!-- Logged-in user display -->
-
+  <mat-card class="user-card" appearance="outlined">
+    <div class="user-content">
+      <span class="material-icons-outlined user-icon">account_circle</span>
+      <div class="user-details">{{ loggedInUser?.firstName }} {{ loggedInUser?.lastName }}</div>
+      
+      <!-- Dropdown button for editing user -->
+      <button mat-icon-button [matMenuTriggerFor]="userMenu">
+        <span class="material-icons">more_vert</span>
+      </button>
+  
+      <mat-menu #userMenu="matMenu" class="custom-menu">
+        <button class="matedit" mat-menu-item (click)="openEditForm(loggedInUser)">
+          <span class="material-icons">edit</span>
+          <span>Edit Account</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-card>
 
   <!-- Main -->
   <div class="main-cards">

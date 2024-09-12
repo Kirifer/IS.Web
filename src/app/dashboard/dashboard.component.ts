@@ -3,16 +3,14 @@ import {Chart, registerables} from 'chart.js';
 import { Supply } from '../models/supply';
 import { HttpClient } from '@angular/common/http';  
 import { Observable,of,tap,throwError,map,catchError, } from 'rxjs';
-import {AfterViewInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatSort, MatSortModule} from '@angular/material/sort';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {CurrencyPipe} from '@angular/common';
-import {MatDialog} from '@angular/material/dialog';
-import { DatePipe } from '@angular/common';
+import {MatTableDataSource} from '@angular/material/table';
 import { environment } from '../../environments/environment';
+import { AuthService } from '../service/auth.service';
+import { User } from '../models/user';
+import { EditUserComponent } from '../edit-user/edit-user.component';
+import { MatDialog } from '@angular/material/dialog';
+import {MatMenuTrigger} from '@angular/material/menu';
+import { HttpHeaders } from '@angular/common/http';
 
 Chart.register(...registerables);
 
@@ -23,11 +21,13 @@ Chart.register(...registerables);
 })
 
 export class DashboardComponent implements OnInit {
+  loggedInUser: User | null = null;
 
   displayedColumns: string[] = ['date', 'category', 'item', 'color','size','quantity'];
   dataSource = new MatTableDataSource<Supply>();
   supplyUrl = environment.supplyUrl;
   identityUrl = environment.identityUrl;
+  userUrl = environment.userUrl;
 
   totalQuantity: number = 0;
   totalSuppliesTaken: number = 0;
@@ -51,6 +51,7 @@ export class DashboardComponent implements OnInit {
       aspectRatio: 1, 
     },
   };
+  constructor(private http: HttpClient, private authService: AuthService, private _dialog: MatDialog) {}
 
   supplies$: Observable<Supply[]> = of([]);
   ngOnInit(){
@@ -65,10 +66,13 @@ export class DashboardComponent implements OnInit {
     });
     this.secondChart = new Chart('MySecondChart', this.secondFigure);
     this.fetchAndProcessSupplies();
+    this.loggedInUser = this.authService.getCurrentUser();
+    
+
   }
 
   // http get
-  constructor(private http: HttpClient) {}
+  
   private getSupplies(): Observable<Supply[]>{
     return this.http.get<{data: Supply[]}>(this.supplyUrl,{withCredentials: true}).pipe(
       map(response => response.data),
@@ -79,6 +83,7 @@ export class DashboardComponent implements OnInit {
       })
     );
   }
+  
   // automatically shows the chart
   ngAfterViewInit() {
     this.secondChart = new Chart('MySecondChart', this.secondFigure);
@@ -109,5 +114,35 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+
+  // edit user
+  openEditForm(user: User | null) {
+    console.log('Edit user:', user);
+    console.log('Logged-in user:', user?.userId);
+    if (user) {
+      const dialogRef = this._dialog.open(EditUserComponent, {
+        data: user
+      });
   
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.authService.updateUser(result);
+        }
+      });
+    } else {
+      console.error('No logged-in user available');
+    }
+  }
+  
+
+  // Function to handle password change
+  changePassword(user: User| null) {
+    // Logic to handle password change for the user
+    console.log('Change password for:', user);
+  }
+
+  // Update the user with new details
+  
+  
+
 }

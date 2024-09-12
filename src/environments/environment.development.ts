@@ -12,4 +12,7 @@ export const environment = {
     codesUrl: `${baseUrl}/supplycodes`,
     // BUDGET
     budgetUrl: `${baseUrl}/budget-expenses`,
+
+    // USER
+    userUrl: `${baseUrl}/users`,
 };

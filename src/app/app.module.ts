@@ -41,7 +41,8 @@ import { ExcelExportService } from './service/excel-export.service';
 import { AddEditBudgetComponent } from './add-edit-budget/add-edit-budget.component';
 import { EditBudgetComponent } from './edit-budget/edit-budget.component';
 import { AuthGuard } from './auth.guard';
-
+import {MatMenuModule} from '@angular/material/menu';
+import { EditUserComponent } from './edit-user/edit-user.component';
  
 
 
@@ -61,7 +62,8 @@ import { AuthGuard } from './auth.guard';
     EditCodeComponent,
     BudgetComponent,
     AddEditBudgetComponent,
-    EditBudgetComponent
+    EditBudgetComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +91,7 @@ import { AuthGuard } from './auth.guard';
     MatGridListModule,
     MatCardModule,
     DatePipe,
+    MatMenuModule,
     
     
   ],

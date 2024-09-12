@@ -15,6 +15,7 @@ export class AuthService {
   private loginUrl = environment.loginUrl;
   private logoutUrl = environment.logoutUrl;
   private currentUser: User | null = null;
+  private userUrl = environment.userUrl;
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
 
@@ -95,6 +96,20 @@ logout(): Observable<any> {
   getCurrentUser(): User | null{
     console.debug('Current user retrieved:', this.currentUser);
     return this.currentUser;
+  }
+
+  updateUser(user: User) {
+    console.log(`${this.userUrl}/${this.currentUser?.userId}`);
+    console.log(user); // Check if the object has valid data
+    this.http.put(`${this.userUrl}/${this.currentUser?.userId}`, user, { withCredentials: true }).subscribe({
+      next: () => {
+        console.log('User successfully updated');
+        this.currentUser = user;
+      },
+      error: error => {
+        console.error('Error updating user:', error);
+      }
+    });
   }
 
   // login(username: string, password: string): Observable<any> {

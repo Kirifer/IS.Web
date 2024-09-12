@@ -50,3 +50,57 @@
     text-align: center;
   }
   
+  .user-card {
+    margin-left: auto;
+    margin-bottom: 100px;
+    width: 300px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .user-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-icon {
+    font-size: 30px;
+    color: #000000;
+    margin-right: 20px;
+  }
+  
+  .user-details {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .main-title{
+    margin-bottom: -90px;
+  }
+
+  .mat-icon-button {
+    margin-left: auto;
+  }
+  
+  .custom-menu .mat-menu-content {
+    background-color: white !important; /* Set background color to white */
+  }
+  
+  .custom-menu .mat-menu-item {
+    color: #ffffff; /* Text color */
+  }
+  
+  .custom-menu .mat-menu-item:hover {
+    background-color: #f1f1f1; /* Hover background */
+  }
+  
+  .matedit {
+    display: flex;
+    align-items: center;
+  }
+  
+  .matedit .material-icons {
+    margin-right: 8px;
+    color: #000000; /* Customize icon color */
+  }
